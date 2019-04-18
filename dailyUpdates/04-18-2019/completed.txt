@@ -1,0 +1,23 @@
+1. Drew layout for twitter plan
+2. Create a Server & client Directory
+3. Install all necessary commands for server directory
+    * express --view=pug
+    * npm install
+    * npm install mongoose
+    * npm install nodemon
+4. install all necassary commands for client directory
+    * npx create-react-app [ app name ]
+    * npm install react-router-dom
+5. Check server/package.json and change "start" from "node" to "nodemon"
+6. Server didnt work because port already taken so use command sudo fuser -k [portnumber]/tcp
+7. add "proxy" ( has to be in double quotes) "http://localhost:[port server is on]" in the client/package.json
+8. Both local host and react app works Yayyyyy!!!!
+
+
+
+9. install all extra commands for authentication
+
+    a)  npm install express-session
+    b)  npm install bcrypt-nodejs
+    c)  npm install passport
+    d)  npm install passport-local
