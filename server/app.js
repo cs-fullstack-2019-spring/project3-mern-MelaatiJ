@@ -9,6 +9,24 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb+srv://admin:admin@cluster0-absz2.mongodb.net/Mern1?retryWrites=true\n';
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+//**************** for authentication *******************//
+var expressSession = require('express-session');
+app.use(expressSession({
+  secret: "codecrew",
+  name: "cookie_name",
+  // store: "sessionStore", // connect-mongo session store
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

@@ -1,0 +1,10 @@
+********************************* Morning *********************************888
+
+To be honest i havent worked on my project since friday but i am here!!. I started off by reading my previous txt file and see
+what was needed.
+
+1. Set up my mongoose Database
+    * google mdn mongo db
+
+2. Sign into my mongodb
+3. Made Schema
