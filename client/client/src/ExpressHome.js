@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 
-class TwitterLogin extends Component{
+class ExpressHome extends Component{
     constructor(props){
         super(props);
         this.state={
-            data:[],
+            userData:[],
         }
     }
-
 
     submitLoginForm=(e)=>{
         // Prevents default behavior like reloading the page before the function is run
@@ -25,17 +25,19 @@ class TwitterLogin extends Component{
                 body: JSON.stringify({
                     username: e.target.username.value,
                     password: e.target.password.value,
-                }),
+                })
             })
-            .then(data=>data.text())
+                .then(data => data.text())
 
-            .then(data =>{
-                if(data)
-                    return this.props.userLoggedIn(data, true);
-                else
+                .then(data =>{
+                    if(data) {
+                        this.props.userLogIn(data, true)
+                    } else {
+                        this.props.userLogIn(null, false);
+                    }
 
-                    return this.props.userLoggedIn(null, false);
-        });
+
+            })
 
     };
 
@@ -53,7 +55,7 @@ class TwitterLogin extends Component{
 
             return (
                 <div>
-                    <h1>TwitterLogin</h1>
+                    <h1>Express Login</h1>
                     <form onSubmit={this.submitLoginForm}>
                         <p>
                             <label htmlFor={"username"}>Username:</label>
@@ -64,7 +66,8 @@ class TwitterLogin extends Component{
                             <input type="password" id={"password"} name={"password"}/>
                         </p>
                         <p>
-                            <input type="submit" value={"Login"}/>
+                            <Link to={"/Profile"}>
+                            <input type="submit" value={"Login"}/> </Link>
                         </p>
 
                     </form>
@@ -76,4 +79,4 @@ class TwitterLogin extends Component{
 }
 
 
-export default TwitterLogin;
+export default ExpressHome;

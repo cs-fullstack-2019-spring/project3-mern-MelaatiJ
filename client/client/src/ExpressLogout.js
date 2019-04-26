@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TwitterLogout extends Component{
+class ExpressLogout extends Component{
     render(){
         return(
             <div>
@@ -10,4 +10,4 @@ class TwitterLogout extends Component{
     }
 }
 
-export default TwitterLogout;
+export default ExpressLogout;

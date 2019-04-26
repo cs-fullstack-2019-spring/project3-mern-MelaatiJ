@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class TwitterProfile extends Component{
+class ExpressEdit extends Component{
     render(){
         return(
             <div>
-                <h1>Profile</h1>
+                <h1>Test</h1>
             </div>
         );
     }
 }
 
-export default TwitterProfile;
+export default ExpressEdit;

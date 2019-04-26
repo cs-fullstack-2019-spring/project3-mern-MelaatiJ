@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TwitterSignup extends Component{
+class ExpressSignup extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -66,4 +66,4 @@ class TwitterSignup extends Component{
     }
 }
 
-export default TwitterSignup;
+export default ExpressSignup;

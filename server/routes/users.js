@@ -9,7 +9,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 // model
-var TwitterCollection = require("../models/TwitterSchema");
+var ExpressCollection = require("../models/ExpressSchema");
 
 // Initialize passport and restore cookie data //
 router.use(passport.initialize());
@@ -21,7 +21,7 @@ passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
 passport.deserializeUser(function(id, done) {
-  userCollection.findById(id, function(err, user) {
+  ExpressCollection.findById(id, function(err, user) {
     done(err, user);
   });
 });
@@ -44,7 +44,7 @@ passport.use('register', new LocalStrategy(
       // Created like this so it can be delayed to be run in the next "tick" loop. See function call below.
       findOrCreateUser = function(){
         // find a user in Mongo with provided username. It returns an error if there is an error or the full entry for that user
-        TwitterCollection.findOne({'username':username},function(error, user) {
+        ExpressCollection.findOne({'username':username},function(error, user) {
           // In case of any error in Mongoose/Mongo when finding the user
           if (error){
             console.log('Error in SignUp: '+error);
@@ -60,7 +60,7 @@ passport.use('register', new LocalStrategy(
             console.log(request.body);
             // if there is no user with that email
             // create the user
-            var newUser = new TwitterCollection();
+            var newUser = new ExpressCollection();
             // set the user's local credentials
             newUser.username = username;
             newUser.password = createHash(password);
@@ -108,14 +108,11 @@ router.get('/userRegisterFail', function(request, response){
 
 
 // check existing user
-passport.use(new LocalStrategy(
-    // req is the request of the route that called the strategy
-    // username and password are passed by passport by default
-    // done is the function to end the strategy (callback function).
+passport.use("signUp", new LocalStrategy(
     function(username, password, done) {
       console.log("Local Strat");
       // find a user in Mongo with provided username. It returns an error if there is an error or the full entry for that user
-      TwitterCollection.findOne({ username: username }, function (err, user) {
+      ExpressCollection.findOne({ username: username }, function (err, user) {
         // If there is a MongoDB/Mongoose error, send the error
         if (err){
           return done(err); }
@@ -161,21 +158,18 @@ router.get("/logout", function(request, response, next){
 
 
 
-router.post("/addTweet", function(request, response) {
-  TwitterCollection.create( request.body.tweetPic, request.body.tweetMessage, request.body.tweetVisible, (errors, results) => {
-      if(errors)
-      {
-          response.send(errors)
-      }
-      else
-      {
-          response.send(results)
-      }
-  })
+router.post('/addTweet', (req, res) => {
+    ExpressCollection.findOneAndUpdate({username: req.body.username},
+        // adding it to the data base
+        {$push: {tweets: req.body}}, (errors, results) => {
+            if (errors) res.send(errors);
+            else res.send("Tweet Added");
+        });
 });
 
+
 router.put("/editTweet", (request, response) =>{
-    TwitterCollection.findOneAndUpdate({id:request.body.id},request.body, (errors, results) => {
+    ExpressCollection.findOneAndUpdate({"tweets._id":request.body._id}, (errors, results) => {
         if(errors)
         {
             response.send(errors)
@@ -188,7 +182,7 @@ router.put("/editTweet", (request, response) =>{
 });
 
 router.get("/tweets", (request, response) => {
-    TwitterCollection.find({}, (errors, results) => {
+    ExpressCollection.find({}, (errors, results) => {
         if(errors)
         {
             response.send(errors)
@@ -198,7 +192,7 @@ router.get("/tweets", (request, response) => {
             response.send(results)
         }
     })
-})
+});
 
 
 
