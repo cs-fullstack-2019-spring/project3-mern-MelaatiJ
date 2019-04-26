@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 
 class ExpressHome extends Component{
     constructor(props){
@@ -66,8 +65,7 @@ class ExpressHome extends Component{
                             <input type="password" id={"password"} name={"password"}/>
                         </p>
                         <p>
-                            <Link to={"/Profile"}>
-                            <input type="submit" value={"Login"}/> </Link>
+                            <input type="submit" value={"Login"}/>
                         </p>
 
                     </form>
