@@ -38,7 +38,7 @@ class App extends Component {
               </div>
 
               <Route path={"/"} exact component={() => <ExpressHome username={this.state.username} signedIn={this.state.signedIn}
-                                                   userLogIn={this.userLogIn}/>}/>
+                                                                    userLogIn={this.userLogIn}/>}/>
               <Route path={"/profile"} component={() => <ExpressProfile username={this.state.username} signedIn={this.state.signedIn}
                                                    userLogIn={this.userLogIn}/>}/>
               <Route path={"/logout"} component={() => <ExpressLogout/>}/>
@@ -55,7 +55,8 @@ class App extends Component {
               <Link to={"/signUp"}>SignUp</Link>
 
             </div>
-            <Route path={"/"} exact component={()=> <ExpressHome username={this.state.username} signedIn={this.state.signedIn}/>}/>
+            <Route path={"/"} exact component={()=> <ExpressHome username={this.state.username} signedIn={this.state.signedIn}
+            userLogIn={this.userLogIn}/>}/>
             <Route path={"/signUp"} component={()=> <ExpressSignup userLogIn={this.userLogIn}/>}/>
 
           </Router>

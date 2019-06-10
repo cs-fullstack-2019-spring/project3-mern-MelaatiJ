@@ -28,9 +28,10 @@ class ExpressHome extends Component{
             })
                 .then(data => data.text())
 
-                .then(data =>{
-                    if(data) {
-                        this.props.userLogIn(data, true)
+                .then(jdata =>{
+                    console.log(jdata);
+                    if(jdata) {
+                        this.props.userLogIn(jdata.username, true)
                     } else {
                         this.props.userLogIn(null, false);
                     }

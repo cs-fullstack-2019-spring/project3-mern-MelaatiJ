@@ -13,14 +13,11 @@ class ExpressSignup extends Component{
         fetch("/users/register",
             {
             method: 'POST',
-            // Accept tells the server what kind of data the client is expecting.
-            // Content-Type tells the server which kind of data the client is sending in the body
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
-            // Creates a collection for username, password, and email. Because a request can't send a collection, you have to make it a JSON string first
-            // e.target is the information being sent from the form input fields by their names give in the input attributes. The value is what was typed.
+
             body: JSON.stringify({
                 username: e.target.username.value,
                 password: e.target.password.value,

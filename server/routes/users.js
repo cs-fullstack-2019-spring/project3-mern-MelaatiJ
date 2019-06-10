@@ -47,7 +47,7 @@ passport.use('register', new LocalStrategy(
         ExpressCollection.findOne({'username':username},function(error, user) {
           // In case of any error in Mongoose/Mongo when finding the user
           if (error){
-            console.log('Error in SignUp: '+error);
+            console.log('Error in SignUp: '+ error);
             // Return the error in the callback function done
             return done(error);
           }
@@ -62,7 +62,7 @@ passport.use('register', new LocalStrategy(
             // create the user
             var newUser = new ExpressCollection();
             // set the user's local credentials
-            newUser.username = username;
+            newUser.username = request.body.username;
             newUser.password = createHash(password);
             newUser.profilePic=request.body.profilePic;
             newUser.backgroudPic = request.body.backgroundPic;
@@ -71,7 +71,7 @@ passport.use('register', new LocalStrategy(
             newUser.save(function(error) {
               // If there is an error
               if (error){
-                console.log('Error in Saving user: '+error);
+                console.log('Error in Saving user: '+ error);
                 // Throw error to catch in the client
                 throw error;
               }
@@ -90,10 +90,9 @@ passport.use('register', new LocalStrategy(
 );
 
 router.post('/register',
-    // Passport's authenticate function is called the register strategy. Once it's complete it's either successful or failed
     passport.authenticate('register',
         // If the register strategy fails, redirect to the /users/failNewUser route
-        {failureRedirect: '/users/userRegisterFail'}
+        {failureRedirect: '/users/userRegisterFail', successRedirect: '/users/userRegisterSuccess'}
     ),
     // If the signup strategy is successful, send "User Created!!!"
     function(request, response) {
@@ -101,14 +100,16 @@ router.post('/register',
       response.send('User Created!!!');
     });
 
+router.get('/userRegisterSuccess', function(request, response){
+    response.send("Registrration success, Express Yourself")
+})
 
 router.get('/userRegisterFail', function(request, response){
-  response.send("Registration Failed")
+  response.send("Registration Failed. Please retry")
 });
 
-
 // check existing user
-passport.use("signUp", new LocalStrategy(
+passport.use( "signUp", new LocalStrategy(
     function(username, password, done) {
       console.log("Local Strat");
       // find a user in Mongo with provided username. It returns an error if there is an error or the full entry for that user
@@ -136,13 +137,14 @@ router.post('/login',
     // Passport's authenticate function called the local strategy. Once it's complete it's either successful or failed
     passport.authenticate('local',
         // If the signup strategy fails, redirect to the /users/failNewUser route
-        {failureRedirect: '/users/loginfail' }),
+        {failureRedirect: '/users/loginFail' }),
 
     // If this function gets called, authentication was successful.
     function(request, response) {
+        console.log("line");
       request.session.username=request.user.username;
       // Send the username and email back to the client to save to the client's state
-      response.send("u");
+      response.send(request.body);
     });
 
 router.get('/loginFail', function(request, response){
