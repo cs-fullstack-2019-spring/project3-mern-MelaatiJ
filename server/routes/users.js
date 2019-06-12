@@ -171,6 +171,18 @@ router.get("/tweets", (request, response) => {
     })
 });
 
+router.post("/searchUsers", (request, response) => {
+    ExpressCollection.findOne({username:request.body.username}, (errors, results) =>{
+        if(errors){
+            response.send(errors)
+        }
+        else{
+            response.send(results);
+
+        }
+    })
+});
+
 
 
 

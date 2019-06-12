@@ -5,7 +5,7 @@ class ExpressSignup extends Component{
     constructor(props) {
         super(props);
         this.state={
-            data:'',
+            notice:'',
             formSubmit:false
         };
     }
@@ -63,7 +63,7 @@ class ExpressSignup extends Component{
             return (
                 <div>
                     <h1>
-                        {this.state.data}
+                        {this.state.notice}
                     </h1>
                 </div>
             );
