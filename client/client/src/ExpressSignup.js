@@ -1,70 +1,75 @@
+
 import React, { Component } from 'react';
 
 class ExpressSignup extends Component{
     constructor(props) {
         super(props);
-        this.state = {
-            notice:"",
-            fromSubmit:false
+        this.state={
+            data:'',
+            formSubmit:false
         };
     }
+    // tweets:[{tweetPic:String, tweetMessage:String, tweetVisible:Boolean }]
 
-    submitSignUpForm = (e) => {
+    submitSignupForm=(e)=>{
         e.preventDefault();
-        fetch("/users/register",
+        fetch('/users/register',
             {
-            method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-            },
-
-            body: JSON.stringify({
-                username: e.target.username.value,
-                password: e.target.password.value,
-                backgroundPic: e.target.backgroundPic.value,
-                profilePic: e.target.profilePic.value,
+                method: 'POST',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: e.target.username.value,
+                    password: e.target.password.value,
+                    profilePic: e.target.profilePic.value,
+                    backgroundPic: e.target.backgroundPic.value,
+                }),
             })
-        })
             .then(data => data.text())
-            .then(response => this.setState({notice:response}))
-            .then(this.setState({formSubmit:true}));
-            // .catch((error) => console.log(error));
-
+            .then(response => this.setState({data: response}))
+            .then(this.setState({formSubmit: true}));
     };
+
     render(){
-        if(this.state.formSubmit === false) {
+        if (this.state.formSubmit === false){
+            return(
+                <div>
+                    <h1>Express Yourself</h1>
+                    <form onSubmit={this.submitSignupForm}>
+                        <label htmlFor={'username'}>Username: </label>
+                        <input type="text" id={'username'} name={'username'}/>
+                        <br/>
+                        <label htmlFor={'password'}>Password: </label>
+                        <input type="password" id={'password'} name={'password'}/>
+                        <br/>
+                        <label htmlFor={'profilePic'}>Profile Pic: </label>
+                        <input type="text" id={'profilePic'} name={'profilePic'}/>
+                        <br/>
+                        <label htmlFor={'backgroundPic'}>Background Pic: </label>
+                        <input type="text" id={'backgroundPic'} name={'backgroundPic'}/>
+                        <br/>
+
+                        <input type="submit" value={'Submit'}/>
+                    </form>
+
+
+
+                </div>
+
+            );}
+        else {
             return (
                 <div>
-                    <h1>Join Now and Express Yourself</h1>
-                    <form onSubmit={this.submitSignUpForm}>
-                        <div>
-                            <label htmlFor="{username}">Enter Username:</label>
-                            <input id={"username"} type="text" name={"username"} autoFocus/>
-                        </div>
-                        <div>
-                            <label htmlFor="{password}">Enter password:</label>
-                            <input id={"password"} type="password" name="password" autoFocus/>
-                        </div>
-                        <div>
-                            <label htmlFor="{backgroundPic}">Enter Background Picture URL:</label>
-                            <input id={"backgroundPic"} type="text" name={"backgroundPic"} placeholder={"Enter URL"}
-                                   autoFocus/>
-                        </div>
-                        <div>
-                            <label htmlFor="{profilePic}">Enter Profile Picture URL:</label>
-                            <input id={"profilePic"} type="text" name="profilePic" placeholder={"Enter URL"} autoFocus/>
-                        </div>
-                        <div>
-                            <input type="submit" value={"register"}/>
-                        </div>
-
-                    </form>
-                    {this.state.notice}
+                    <h1>
+                        {this.state.data}
+                    </h1>
                 </div>
             );
         }
-    }
-}
+    }}
+
+
 
 export default ExpressSignup;
