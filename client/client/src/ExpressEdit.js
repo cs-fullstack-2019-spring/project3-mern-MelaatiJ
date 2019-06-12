@@ -10,7 +10,7 @@ class ExpressEdit extends Component{
 
     editForm = (e) => {
         e.preventDefault();
-        fetch('/users/', {
+        fetch('/users/editTweet/', {
             method :'POST',
             headers: {
                 "Accept": "application/json",
@@ -43,6 +43,10 @@ class ExpressEdit extends Component{
                         <label htmlFor={"tweetPic"}>Tweet Image URL:</label>
                         <input type="text" id={"tweetPic"} defaultValue={this.props.tweetPic} name={"tweetPic"}/>
                     </div>
+                    {/*<div>*/}
+                    {/*    <label htmlFor={"tweetVisible"}>Public?:</label>*/}
+                    {/*    <input type="checkbox" name={"tweetVisible"} defaultChecked={this.props.tweetVisible}/>*/}
+                    {/*</div>*/}
                     <div>
                         <input type="submit" value={"edit Tweet"}/>
                     </div>

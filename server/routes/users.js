@@ -145,26 +145,28 @@ router.post('/addTweet', (req, res) => {
 });
 
 
-router.put("/editTweet/:id/:tweetId", (request, response) =>{
-    ExpressCollection.updateOne({_id:request.params.id,"tweets._id":request.params.tweetId},
+router.put("/editTweet", (request, response) =>{
+    ExpressCollection.fineOneAndUpdate(
+        {_id:request.body.tweets},
         {
             $set:{
                 "tweets.$.tweetMessage":request.body.tweetMessage,
                 "tweets.$.tweetPic":request.body.tweetPic,
+                "tweets.$.tweetVisible":request.body.tweetVisible,
 
 
             }
 
-    } (errors, results) => {
+    }, (errors) => {
         if(errors)
         {
             response.send(errors)
         }
         else
         {
-            response.send(results)
+            response.send("Updated")
         }
-    })
+    });
 });
 
 router.get("/tweets", (request, response) => {
