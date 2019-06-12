@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import "./App.css";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import ExpressHome from "./ExpressHome";
 import ExpressSignup from "./ExpressSignup";
 import ExpressProfile from "./ExpressProfile";
 import ExpressLogout from "./ExpressLogout";
+
+
 
 
 class App extends Component {
@@ -29,7 +32,7 @@ class App extends Component {
       return (
             <Router>
               <div>
-                <h1 className="appName">Express </h1>
+                <h1 className="appName">Express</h1>
 
                 <Link to={"/"}>Home</Link>
                 <Link to={"/profile"}>Profile</Link>
@@ -52,12 +55,12 @@ class App extends Component {
             <div>
               <h1 className="appName">Express</h1>
               <Link to={"/"}>Home</Link>
-              <Link to={"/signUp"}>SignUp</Link>
+              <Link to={"/register"}>SignUp</Link>
 
             </div>
             <Route path={"/"} exact component={()=> <ExpressHome username={this.state.username} signedIn={this.state.signedIn}
             userLogIn={this.userLogIn}/>}/>
-            <Route path={"/signUp"} component={()=> <ExpressSignup userLogIn={this.userLogIn}/>}/>
+            <Route path={"/register"} component={()=> <ExpressSignup userLogIn={this.userLogIn}/>}/>
 
           </Router>
       )

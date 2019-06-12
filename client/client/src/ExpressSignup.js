@@ -5,6 +5,7 @@ class ExpressSignup extends Component{
         super(props);
         this.state = {
             notice:"",
+            fromSubmit:false
         };
     }
 
@@ -27,39 +28,42 @@ class ExpressSignup extends Component{
         })
             .then(data => data.text())
             .then(response => this.setState({notice:response}))
-            .catch((error) => console.log(error));
+            .then(this.setState({formSubmit:true}));
+            // .catch((error) => console.log(error));
 
     };
     render(){
-        return(
-            <div>
-                <h1>TwitterHome</h1>
-                <h1>Signup</h1>
-                <form onSubmit={this.submitSignUpForm}>
-                    <p>
-                        <label htmlFor="{username}">Enter Username:</label>
-                        <input id={"username"} type="text" name="username" placeholder={"Enter Username"} autoFocus/>
-                    </p>
-                    <p>
-                        <label htmlFor="{password}">Enter password:</label>
-                        <input id={"password"} type="password" name="password" placeholder={"Enter password"} autoFocus/>
-                    </p>
-                    <p>
-                        <label htmlFor="{backgroundPic}">Enter Background Picture:</label>
-                        <input id={"backgroundPic"} type="text" name="backgroundPic" placeholder={"Enter URL"} autoFocus/>
-                    </p>
-                    <p>
-                        <label htmlFor="{profilePic}">Enter Profile Picture:</label>
-                        <input id={"profilePic"} type="text" name="profilePic" placeholder={"Enter URL"} autoFocus/>
-                    </p>
-                    <p>
-                        <input type="submit" value={"register"}/>
-                    </p>
+        if(this.state.formSubmit === false) {
+            return (
+                <div>
+                    <h1>Join Now and Express Yourself</h1>
+                    <form onSubmit={this.submitSignUpForm}>
+                        <div>
+                            <label htmlFor="{username}">Enter Username:</label>
+                            <input id={"username"} type="text" name={"username"} autoFocus/>
+                        </div>
+                        <div>
+                            <label htmlFor="{password}">Enter password:</label>
+                            <input id={"password"} type="password" name="password" autoFocus/>
+                        </div>
+                        <div>
+                            <label htmlFor="{backgroundPic}">Enter Background Picture URL:</label>
+                            <input id={"backgroundPic"} type="text" name={"backgroundPic"} placeholder={"Enter URL"}
+                                   autoFocus/>
+                        </div>
+                        <div>
+                            <label htmlFor="{profilePic}">Enter Profile Picture URL:</label>
+                            <input id={"profilePic"} type="text" name="profilePic" placeholder={"Enter URL"} autoFocus/>
+                        </div>
+                        <div>
+                            <input type="submit" value={"register"}/>
+                        </div>
 
-                </form>
-                {this.state.notice}
-            </div>
-        );
+                    </form>
+                    {this.state.notice}
+                </div>
+            );
+        }
     }
 }
 

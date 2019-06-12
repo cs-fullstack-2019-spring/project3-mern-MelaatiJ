@@ -1,14 +1,8 @@
 var express = require('express');
 var router = express.Router();
-
-//  ********* used to hash passwords ****** //
 var bCrypt = require('bcrypt-nodejs');
-
-// middleware for authentication . Run at the start of a route that uses a strategy //
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
-// model
 var ExpressCollection = require("../models/ExpressSchema");
 
 // Initialize passport and restore cookie data //
@@ -36,48 +30,35 @@ var createHash = function(password){
   return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 };
 
+//logout route
+router.get('/logout', (req, res) => {
+    req.session = null
+});
+
 // create a new user
 passport.use('register', new LocalStrategy(
-    // Allows you to use the req.body of the route that called the strategy
     {passReqToCallback : true},
     function(request, username, password, done) {
-      // Created like this so it can be delayed to be run in the next "tick" loop. See function call below.
       findOrCreateUser = function(){
-        // find a user in Mongo with provided username. It returns an error if there is an error or the full entry for that user
         ExpressCollection.findOne({'username':username},function(error, user) {
           // In case of any error in Mongoose/Mongo when finding the user
-          if (error){
-            console.log('Error in SignUp: '+ error);
-            // Return the error in the callback function done
-            return done(error);
-          }
-          // if the user already exists
-          if (user) {
-            return done(null, false,
-                { message: 'User already exists.' }
-            );
+          if (user){
+            return done(null, false, {message:'User Exists'});
           } else {
-            console.log(request.body);
-            // if there is no user with that email
-            // create the user
             var newUser = new ExpressCollection();
             // set the user's local credentials
-            newUser.username = request.body.username;
+            newUser.username = username;
             newUser.password = createHash(password);
             newUser.profilePic=request.body.profilePic;
             newUser.backgroudPic = request.body.backgroundPic;
 
             // save the user. Works like .create, but for an object of a schema
-            newUser.save(function(error) {
-              // If there is an error
-              if (error){
-                console.log('Error in Saving user: '+ error);
-                // Throw error to catch in the client
-                throw error;
+            newUser.save((errors) => {
+              if (errors){
+                console.log('Error in Saving user: '+ errors);
+                throw errors;
               }
               console.log('User Registration succesful');
-              // Null is returned because there was no error
-              // newUser is returned in case the route that called this strategy (callback route) needs any of it's info.
               return done(null, newUser);
             });
           }
@@ -91,33 +72,28 @@ passport.use('register', new LocalStrategy(
 
 router.post('/register',
     passport.authenticate('register',
-        // If the register strategy fails, redirect to the /users/failNewUser route
         {failureRedirect: '/users/userRegisterFail', successRedirect: '/users/userRegisterSuccess'}
     ),
-    // If the signup strategy is successful, send "User Created!!!"
     function(request, response) {
       // Send the message in the .send function
-      response.send('User Created!!!');
+      response.send(req.body.username);
     });
 
 router.get('/userRegisterSuccess', function(request, response){
-    response.send("Registrration success, Express Yourself")
-})
+    response.send("Registration success, Express Yourself")
+});
 
 router.get('/userRegisterFail', function(request, response){
   response.send("Registration Failed. Please retry")
 });
 
 // check existing user
-passport.use( "signUp", new LocalStrategy(
+passport.use(new LocalStrategy(
     function(username, password, done) {
       console.log("Local Strat");
-      // find a user in Mongo with provided username. It returns an error if there is an error or the full entry for that user
       ExpressCollection.findOne({ username: username }, function (err, user) {
-        // If there is a MongoDB/Mongoose error, send the error
         if (err){
           return done(err); }
-        // If there is not a user in the database, it's a failure and send the message below
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }
@@ -141,10 +117,9 @@ router.post('/login',
 
     // If this function gets called, authentication was successful.
     function(request, response) {
-        console.log("line");
-      request.session.username=request.user.username;
+      request.session.username=request.body.username;
       // Send the username and email back to the client to save to the client's state
-      response.send(request.body);
+      response.send(request.session.username);
     });
 
 router.get('/loginFail', function(request, response){
