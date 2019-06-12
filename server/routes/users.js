@@ -145,8 +145,17 @@ router.post('/addTweet', (req, res) => {
 });
 
 
-router.put("/editTweet", (request, response) =>{
-    ExpressCollection.findOneAndUpdate({"tweets._id":request.body._id}, (errors, results) => {
+router.put("/editTweet/:id/:tweetId", (request, response) =>{
+    ExpressCollection.updateOne({_id:request.params.id,"tweets._id":request.params.tweetId},
+        {
+            $set:{
+                "tweets.$.tweetMessage":request.body.tweetMessage,
+                "tweets.$.tweetPic":request.body.tweetPic,
+
+
+            }
+
+    } (errors, results) => {
         if(errors)
         {
             response.send(errors)

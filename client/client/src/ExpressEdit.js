@@ -4,13 +4,13 @@ class ExpressEdit extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            expressForm :true
-        }
+            expressFormEdit :"",
+        };
     }
 
     editForm = (e) => {
         e.preventDefault();
-        fetch('/users/edit/', {
+        fetch('/users/', {
             method :'POST',
             headers: {
                 "Accept": "application/json",
@@ -26,12 +26,11 @@ class ExpressEdit extends Component{
                 }
             ),
         })
-            .then(()=>console.log("EXpress update complete"))
-            .then(()=>this.setState({expressForm:false}))
+            .then(data => data.text())
+            .then(response=>this.setState({expressFormEdit:response}))
     };
 
     render(){
-        if(this.state.editForm === true){
         return(
             <div>
                 <h1>Edit Expression</h1>
@@ -50,14 +49,7 @@ class ExpressEdit extends Component{
                 </form>
             </div>
         );
-        }
-        else{
-            return(
-                <div>
-                    <h1>Express Update</h1>
-                </div>
-            )
-        }
+
     }
 }
 

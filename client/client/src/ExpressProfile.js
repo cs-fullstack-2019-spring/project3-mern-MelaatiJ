@@ -27,21 +27,21 @@ class ExpressProfile extends Component {
             })
                 .then(data=>data.json())
                 .then(returnedData => this.setState({userData:returnedData}))
-                .then(()=> this.mapPost())
+                .then(()=> this.mapTweet())
         }
         else{
             console.log('User must login')
         }
     };
 
-    mapPost = () => {
-        if (this.state.userData.tweet) {
-            let postMap = this.state.userData.tweet.map((eachTweet) => {
+    mapTweet = () => {
+        if (this.state.userData.tweets) {
+            let tweetMap = this.state.userData.tweets.map((eachTweet) => {
                 return (
                     <Router>
                         <div key={eachTweet._id}>
                             <p>{eachTweet.tweetMessage}</p>
-                            <img src={eachTweet.tweetPic} alt="post image"/>
+                            <img src={eachTweet.tweetPic} alt="Tweet image"/>
                             <Link to={'/editTweet'}>Edit</Link>
                             <hr/>
                         </div>
@@ -50,13 +50,13 @@ class ExpressProfile extends Component {
                     </Router>
                 )
             });
-            this.setState({userPost:postMap})
+            this.setState({userPost:tweetMap})
         }
     };
 
     TweetPostSubmit = (e) => {
         e.preventDefault();
-        fetch('/users/addPost', {
+        fetch('/users/addTweet', {
             method:'POST',
             headers:{
                 "Accept": "application/json",
@@ -86,15 +86,15 @@ class ExpressProfile extends Component {
                     <h1>{this.props.username}</h1>
                     <div>
                         <div>
-                            <img src={this.state.userData.profilePic} alt="Profile Picture"/>
-                            <img src={this.state.userData.backgroundPic} alt="Background Picture"/>
+                            <img src={this.state.userData.profilePic} />
+                            <img src={this.state.userData.backgroundPic}/>
                         </div>
                         <div>
                             <h2>Express It!</h2>
                             <form onSubmit={this.TweetPostSubmit}>
                                 <div>
                                     <label htmlFor={"tweetMessage"}>Express Yourself: </label>
-                                    <input className={'textBox'} type="text" id={"tweetMessage"} name={"tweetMessage"}/>
+                                    <input type="text" id={"tweetMessage"} name={"tweetMessage"}/>
                                 </div>
                                 <div>
                                     <label htmlFor={"tweetPic"}>Add a pic image URL: </label>

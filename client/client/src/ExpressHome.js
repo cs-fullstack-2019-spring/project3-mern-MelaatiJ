@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
+
 class ExpressHome extends Component{
     constructor(props){
         super(props);
@@ -75,7 +76,7 @@ class ExpressHome extends Component{
                     return (
                         <div key={eachTweet._id}>
                             <p>{eachTweet.tweetMessage}</p>
-                            <img src={eachTweet.tweetPic} alt=""/>
+                            <img src={eachTweet.tweetPic} alt="tweet"/>
                             <hr/>
 
                         </div>
@@ -88,7 +89,7 @@ class ExpressHome extends Component{
                 return (
                     <div key={eachTweet._id}>
                         <p>{eachTweet.tweetMessage}</p>
-                        <img src={eachTweet.tweetPic} alt=""/>
+                        <img src={eachTweet.tweetPic} alt="tweet"/>
                         <hr/>
 
                     </div>
