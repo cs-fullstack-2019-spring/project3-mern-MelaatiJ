@@ -42,13 +42,13 @@ class App extends Component {
                       <div className="collapse navbar-collapse" id="navbarNav">
                           <ul className="navbar-nav">
                               <li className="nav-item active">
-                                  <a className="nav-link" href="#"><Link to={"/"}>Home</Link> <span className="sr-only">(current)</span></a>
+                                  <a className="nav-link"><Link to={"/"}>Home</Link> <span className="sr-only">(current)</span></a>
                               </li>
                               <li className="nav-item">
-                                  <a className="nav-link" href="#"><Link to={"/profile"}>Profile</Link></a>
+                                  <a className="nav-link"><Link to={"/profile"}>Profile</Link></a>
                               </li>
                               <li className="nav-item">
-                                  <a className="nav-link" href="#"> <Link to={"/"} onClick={this.userLoggedOut}>LogOut</Link></a>
+                                  <a className="nav-link" > <Link to={"/"} onClick={this.userLoggedOut}>LogOut</Link></a>
                               </li>
 
                           </ul>
@@ -84,10 +84,10 @@ class App extends Component {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#"><Link to={"/"}>Home</Link><span className="white"></span></a>
+                                <a className="nav-link"><Link to={"/"}>Home</Link><span className="white"></span></a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#"><Link to={"/register"}>SignUp</Link></a>
+                                <a className="nav-link"><Link to={"/register"}>SignUp</Link></a>
                             </li>
 
                         </ul>

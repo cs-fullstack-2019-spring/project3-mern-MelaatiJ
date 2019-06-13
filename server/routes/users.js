@@ -50,7 +50,7 @@ passport.use('register', new LocalStrategy(
             newUser.username = username;
             newUser.password = createHash(password);
             newUser.profilePic=request.body.profilePic;
-            newUser.backgroudPic = request.body.backgroundPic;
+            newUser.backgroundPic = request.body.backgroundPic;
 
             // save the user. Works like .create, but for an object of a schema
             newUser.save((errors) => {
@@ -76,7 +76,7 @@ router.post('/register',
     ),
     function(request, response) {
       // Send the message in the .send function
-      response.send(req.body.username);
+      response.send(request.body.username);
     });
 
 router.get('/userRegisterSuccess', function(request, response){
@@ -194,7 +194,32 @@ router.post("/searchUsers", (request, response) => {
     })
 });
 
-
+router.post('/search', (req, res) => {
+    ExpressCollection.find(
+        {"tweets.tweetMessage": {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
+            if (errors) res.send(errors);
+            else {
+                let allresults = [];
+                let searchResults = [];
+                for (let i = 0; i < results.length; i++) {
+                    for (let j = 0; j < results[i].tweets.length; j++) {
+                        allresults.push(
+                            {
+                                tweetMessage:results[i].tweets[j].tweetMessage,
+                                tweetPic:results[i].tweets[j].tweetPic,
+                            }
+                        )
+                    }
+                }
+                for(let i=0; i<allresults.length; i++){
+                    if(allresults[i].tweetMessage.includes(req.body.searchBar)){
+                        searchResults.push(allresults[i])
+                    }
+                }
+                res.send(searchResults);
+            }
+        })
+});
 
 
 
