@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
@@ -112,6 +113,10 @@ class ExpressHome extends Component{
         };
 
         render() {
+                if(this.props.search)
+                {
+                    return <Redirect to="/search"/>
+                }
                 if (this.props.signedIn === true) {
                     return (
                         <div className="container">

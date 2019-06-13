@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import "./App.css";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 import ExpressHome from "./ExpressHome";
 import ExpressSignup from "./ExpressSignup";
 import ExpressProfile from "./ExpressProfile";
 import ExpressLogout from "./ExpressLogout";
+import Search from "./Search";
 
 
 
@@ -15,6 +16,7 @@ class App extends Component {
     this.state = {
       username: null,
       signedIn: false,
+        search:false,
     }
   }
 
@@ -27,7 +29,28 @@ class App extends Component {
     this.setState({username: null, signedIn: false});
   };
 
-  render() {
+    searchForm = (e) => {
+        e.preventDefault();
+        fetch('/users/search/', {
+            method :'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type":"application/json"
+            },
+
+            body: JSON.stringify(
+                {
+                    search:e.target.search.value,
+
+                }
+            ),
+        })
+            .then(data => data.json())
+            .then(response=>this.setState({search:response}))
+    };
+
+
+    render() {
     if (this.state.username) {
       return (
             <Router>
@@ -52,7 +75,13 @@ class App extends Component {
                               </li>
 
                           </ul>
+                          <form method="POST" onSubmit={this.searchForm} className="form-inline my-2 my-lg-0">
+                              <input className="form-control mr-sm-2" type="text" placeholder="Search"
+                                     aria-label="Search" name={"search"}/>
+                                  <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                          </form>
                       </div>
+
                   </nav>
 
 
@@ -62,11 +91,12 @@ class App extends Component {
                 {/*<Link to={"/addTweet"}>Add Tweet</Link>*/}
               </div>
 
-              <Route path={"/"} exact component={() => <ExpressHome username={this.state.username} signedIn={this.state.signedIn}
+              <Route path={"/"} exact component={() => <ExpressHome search={this.state.search} username={this.state.username} signedIn={this.state.signedIn}
                                                                     userLogIn={this.userLogIn}/>}/>
-              <Route path={"/profile"} component={() => <ExpressProfile username={this.state.username} signedIn={this.state.signedIn}
+              <Route path={"/profile"} component={() => <ExpressProfile search={this.state.search} username={this.state.username} signedIn={this.state.signedIn}
                                                    userLogIn={this.userLogIn}/>}/>
               <Route path={"/logout"} component={() => <ExpressLogout/>}/>
+              <Route path={"/search"} component={()=> <Search search={this.state.search}/>} />
               {/*<Route path={"/addTweet"} component={() => <AddTweet/>}/>*/}
             </Router>
       );
@@ -91,6 +121,11 @@ class App extends Component {
                             </li>
 
                         </ul>
+                        <form method="POST" onSubmit={this.searchForm} className="form-inline my-2 my-lg-0">
+                            <input className="form-control mr-sm-2" type="text" placeholder="Search"
+                                   aria-label="Search" name={"search"}/>
+                            <button className="btn btn-primary" type="submit">Search</button>
+                        </form>
                     </div>
                 </nav>
 
@@ -98,9 +133,10 @@ class App extends Component {
               {/*<Link to={"/register"}>SignUp</Link>*/}
 
             </div>
-            <Route path={"/"} exact component={()=> <ExpressHome username={this.state.username} signedIn={this.state.signedIn}
+            <Route path={"/"} exact component={()=> <ExpressHome search={this.state.search} username={this.state.username} signedIn={this.state.signedIn}
             userLogIn={this.userLogIn}/>}/>
-            <Route path={"/register"} component={()=> <ExpressSignup userLogIn={this.userLogIn}/>}/>
+            <Route path={"/register"} component={()=> <ExpressSignup search={this.state.search} userLogIn={this.userLogIn}/>}/>
+            <Route path={"/search"} component={()=><Search search={this.state.search}/>} />
 
           </Router>
       )
