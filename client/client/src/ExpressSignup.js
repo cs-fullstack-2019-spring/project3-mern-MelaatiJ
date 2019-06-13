@@ -36,21 +36,26 @@ class ExpressSignup extends Component{
             return(
                 <div>
                     <h1>Express Yourself</h1>
-                    <form onSubmit={this.submitSignupForm}>
-                        <label htmlFor={'username'}>Username: </label>
-                        <input type="text" id={'username'} name={'username'}/>
-                        <br/>
-                        <label htmlFor={'password'}>Password: </label>
-                        <input type="password" id={'password'} name={'password'}/>
-                        <br/>
-                        <label htmlFor={'profilePic'}>Profile Pic: </label>
-                        <input type="text" id={'profilePic'} name={'profilePic'}/>
-                        <br/>
-                        <label htmlFor={'backgroundPic'}>Background Pic: </label>
-                        <input type="text" id={'backgroundPic'} name={'backgroundPic'}/>
-                        <br/>
 
-                        <input type="submit" value={'Submit'}/>
+                    <form onSubmit={this.submitSignupForm}>
+                        <div className="form-group">
+                            <label htmlFor={'username'}>Username: </label>
+                            <input type="text" id={'username'} className="form-control" name={'username'} placeholder="username"/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor={'password'}>Password: </label>
+                            <input type="password" id={'password'} name={'password'} className="form-control"/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor={'profilePic'}>Profile Pic: </label>
+                            <input type="text" id={'profilePic'} name={'profilePic'} className="form-control" placeholder="URL"/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor={'backgroundPic'}>Background Pic: </label>
+                            <input type="text" id={'backgroundPic'} name={'backgroundPic'} placeholder="URL" className="form-control"/>
+                        </div>
+                        <button type="submit" value={'submit'} className="btn btn-primary">Submit</button>
+
                     </form>
 
 

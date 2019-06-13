@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import './App.css';
+
 
 
 class ExpressHome extends Component{
@@ -74,12 +76,22 @@ class ExpressHome extends Component{
         let tweets = this.state.tweetMap.map((eachTweet) => {
             if (eachTweet.tweetVisible === true) {
                     return (
-                        <div key={eachTweet._id}>
-                            <p>{eachTweet.tweetMessage}</p>
-                            <img src={eachTweet.tweetPic} alt="tweet"/>
-                            <hr/>
+                        <div className="containerHomePage" key={eachTweet._id}>
 
+                            <div className="container">
+
+                                <div className="row">
+                                    <div className="col-lg-6">
+                                        <img className="img-responsive" width={250} height={250} src={eachTweet.tweetPic} alt="tweet"/>
+
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <p>{eachTweet.tweetMessage}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     )
 
 
@@ -102,50 +114,75 @@ class ExpressHome extends Component{
         render() {
                 if (this.props.signedIn === true) {
                     return (
-                        <div>
-                            {this.state.tweetMap}
-                            <img src={this.props.signedIn.profilePic} alt=""/>
-                            <h1>{this.props.signedIn.username}</h1>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-12 text-center">
+
+                                    <h3>Welcome to Express yourself</h3>
+
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 text-center">
+                                    {this.state.tweetMap}
+                                    <img src={this.props.signedIn.profilePic} alt=""/>
+                                    <h1>{this.props.signedIn.username}</h1>
+                                </div>
+
+
+
+                            </div>
+                            {/*{this.state.tweetMap}*/}
+                            {/*<img src={this.props.signedIn.profilePic} alt=""/>*/}
+                            {/*<h1>{this.props.signedIn.username}</h1>*/}
                         </div>
                     );
                 } else {
 
                     return (
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-6">
-                                    <ul>
-                                        <li>Make new Friends</li>
-                                        <li>Connect with friends</li>
-                                        <li>Express Your Thoughts</li>
+                        <div className="containerHome">
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-6">
+                                        <ul className="list">
+                                            <li>
+                                                <h2>Connect With Friends</h2>
+                                            </li>
+                                            <li>
+                                                <h2>Tell us how you feel</h2>
+                                            </li>
+                                            <li>
+                                                <h2>Express Yourself</h2>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-                                    </ul>
+                                    <div className="col-6">
+                                        <img width={256} height={256} src={"images/elephant.png"} alt=""/>
+                                        <h2>See how everyone is feeling</h2><h2> in the world right now</h2>
+                                        <h3>Express Login</h3>
+                                        <form onSubmit={this.submitLoginForm}>
+                                            <div>
+                                                <label htmlFor={"username"}>Username:</label>
+                                                <input type="text" id={"username"} name={"username"}/>
+                                            </div>
+                                            <div>
+                                                <label htmlFor={"password"}>Password:</label>
+                                                <input type="password" id={"password"} name={"password"}/>
+                                            </div>
+                                            <div>
+                                                <input type="submit" value={"Login"}/>
+                                            </div>
 
+                                        </form>
+                                    </div>
+
+                                    {/*<h4>Public Post:</h4>*/}
+                                    {/*<br/>*/}
+                                    {/*{this.state.tweetMap}*/}
                                 </div>
-                                <div className="col-lg-6">
-                                    <h1>Express Login</h1>
-                                    <form onSubmit={this.submitLoginForm}>
-                                        <div>
-                                            <label htmlFor={"username"}>Username:</label>
-                                            <input type="text" id={"username"} name={"username"}/>
-                                        </div>
-                                        <div>
-                                            <label htmlFor={"password"}>Password:</label>
-                                            <input type="password" id={"password"} name={"password"}/>
-                                        </div>
-                                        <div>
-                                            <input type="submit" value={"Login"}/>
-                                        </div>
-
-                                    </form>
-                                </div>
-
-                                <h4>Public Post:</h4>
-                                <br/>
-                                {this.state.tweetMap}
                             </div>
                         </div>
-
                     );
 
                 }

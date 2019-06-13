@@ -41,14 +41,17 @@ class ExpressProfile extends Component {
                     <Router>
                         <div key={eachTweet._id}>
                             <p>{eachTweet.tweetMessage}</p>
-                            <img src={eachTweet.tweetPic} alt="Tweet image"/>
+                            <img width={250} height={250} src={eachTweet.tweetPic} alt="Tweet image"/>
                             <Link to={'/editTweet'}>Edit</Link>
                             <hr/>
+
                         </div>
                         <Route path={'/editTweet'}
                                component={()=> <ExpressEdit/>}/>
                     </Router>
                 )
+
+
             });
             this.setState({userPost:tweetMap})
         }
@@ -83,35 +86,46 @@ class ExpressProfile extends Component {
         if (this.props.signedIn === true && this.state.formSubmit === false ) {
             return (
                 <div className="App">
-                    <h1>{this.props.username}</h1>
-                    <div>
-                        <div>
-                            <img src={this.state.userData.profilePic} />
-                            <img src={this.state.userData.backgroundPic}/>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-6">
+                                <h1>Welcome {this.props.username}</h1>
+
+                                <img src={this.state.userData.profilePic}/>
+                                <img src={this.state.userData.backgroundPic}/>
+                            </div>
+                            <div className="col-lg-6 editExpression">
+                                <h2>Express It!</h2>
+
+                                <form onSubmit={this.TweetPostSubmit}>
+                                    <div>
+                                        <label htmlFor={"tweetMessage"}>Express Yourself: </label>
+                                        <input type="text" id={"tweetMessage"} name={"tweetMessage"}/>
+                                    </div>
+                                    <div>
+                                        <label htmlFor={"tweetPic"}>Add a pic image URL: </label>
+                                        <input type="text" id={"tweetPic"} name={"tweetPic"}/>
+                                    </div>
+                                    <div>
+                                        <label htmlFor={"tweetVisible"}>Public?: </label>
+                                        <input type="checkbox" name={"tweetVisible"}/>
+                                    </div>
+                                    <div>
+                                        <input type="submit" value={'add Tweet'}/>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+
                         <div>
-                            <h2>Express It!</h2>
-                            <form onSubmit={this.TweetPostSubmit}>
-                                <div>
-                                    <label htmlFor={"tweetMessage"}>Express Yourself: </label>
-                                    <input type="text" id={"tweetMessage"} name={"tweetMessage"}/>
-                                </div>
-                                <div>
-                                    <label htmlFor={"tweetPic"}>Add a pic image URL: </label>
-                                    <input type="text" id={"tweetPic"} name={"tweetPic"}/>
-                                </div>
-                                <div>
-                                    <label htmlFor={"tweetVisible"}>Public?: </label>
-                                    <input type="checkbox" name={"tweetVisible"}/>
-                                </div>
-                                <div>
-                                    <input type="submit" value={'add Tweet'}/>
-                                </div>
-                            </form>
+
                         </div>
-                        <div>
-                            <h4>Tweets</h4>
+
+                        <div className="row">
+                            <div className="col-lg-12 text-center">
+                            <h2>My Tweets</h2>
                             {this.state.userPost}
+                            </div>
                         </div>
                     </div>
                 </div>

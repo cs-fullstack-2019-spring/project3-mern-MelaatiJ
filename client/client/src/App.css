@@ -31,3 +31,47 @@
     transform: rotate(360deg);
   }
 }
+
+/*.container{*/
+/*  background: lightslategrey;*/
+/*}*/
+
+/*body{*/
+/*  background: red;*/
+/*}*/
+.containerHomePage{
+  background-color:#f0f0f0;
+}
+/*.left {*/
+/*  background-color: mediumseagreen;*/
+/*  width: 50%;*/
+
+/*}*/
+
+.container{
+  padding: 5%;
+  width: 40%;
+  /*float: left;*/
+  /*float: left;*/
+}
+
+.containerHome{
+  background-color: #61dafb;
+}
+.left{
+  text-align: center;
+}
+
+
+.list{
+  padding-top: 40%;
+}
+
+.editExpression{
+  padding-top: 15%%;
+  background-color:#f0f0f0;
+
+}
+
+
+
