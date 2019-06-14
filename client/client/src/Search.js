@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
-import ExpressEdit from "./ExpressEdit";
 
 
 class Search extends Component{
+    constructor(props){
+        super(props)
+        searchMap:[]
+
+    }
     render(){
         return(
             <div>

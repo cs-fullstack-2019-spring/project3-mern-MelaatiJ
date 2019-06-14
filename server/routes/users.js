@@ -194,10 +194,10 @@ router.post("/searchUsers", (request, response) => {
     })
 });
 
-router.post('/search', (req, res) => {
+router.post('/search', (request, response) => {
     ExpressCollection.find(
-        {"tweets.tweetMessage": {"$regex": req.body.searchBar, "$options": "i"}}, (errors, results) => {
-            if (errors) res.send(errors);
+        {"tweets.tweetMessage": {"$regex": request.body.search, "$options": "i"}}, (errors, results) => {
+            if (errors) response.send(errors);
             else {
                 let allresults = [];
                 let searchResults = [];
@@ -212,11 +212,11 @@ router.post('/search', (req, res) => {
                     }
                 }
                 for(let i=0; i<allresults.length; i++){
-                    if(allresults[i].tweetMessage.includes(req.body.searchBar)){
+                    if(allresults[i].tweetMessage.includes(request.body.search)){
                         searchResults.push(allresults[i])
                     }
                 }
-                res.send(searchResults);
+                response.send(searchResults);
             }
         })
 });

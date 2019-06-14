@@ -71,11 +71,11 @@ class App extends Component {
                                   <a className="nav-link"><Link to={"/profile"}>Profile</Link></a>
                               </li>
                               <li className="nav-item">
-<<<<<<< HEAD
-                                  <a className="nav-link"> <Link to={"/logout"} onClick={this.userLoggedOut}>LogOut</Link></a>
-=======
+
+                                  {/*<a className="nav-link"> <Link to={"/logout"} onClick={this.userLoggedOut}>LogOut</Link></a>*/}
+
                                   <a className="nav-link" > <Link to={"/"} onClick={this.userLoggedOut}>LogOut</Link></a>
->>>>>>> 7d9b5de31904ef541583a974bedd412536e28948
+
                               </li>
 
                           </ul>
