@@ -71,6 +71,10 @@ class App extends Component {
                                   <a className="nav-link"><Link to={"/profile"}>Profile</Link></a>
                               </li>
                               <li className="nav-item">
+                                  <a className="nav-link"><Link to={"/search"}>Search</Link></a>
+                              </li>
+
+                              <li className="nav-item">
 
                                   {/*<a className="nav-link"> <Link to={"/logout"} onClick={this.userLoggedOut}>LogOut</Link></a>*/}
 
@@ -79,11 +83,7 @@ class App extends Component {
                               </li>
 
                           </ul>
-                          <form method="POST" onSubmit={this.searchForm} className="form-inline my-2 my-lg-0">
-                              <input className="form-control mr-sm-2" type="text" placeholder="Search"
-                                     aria-label="Search" name={"search"}/>
-                                  <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                          </form>
+
                       </div>
 
                   </nav>
@@ -123,13 +123,12 @@ class App extends Component {
                             <li className="nav-item">
                                 <a className="nav-link"><Link to={"/register"}>SignUp</Link></a>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link"><Link to={"/search"}>Search</Link></a>
+                            </li>
 
                         </ul>
-                        <form method="POST" onSubmit={this.searchForm} className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="text" placeholder="Search"
-                                   aria-label="Search" name={"search"}/>
-                            <button className="btn btn-primary" type="submit">Search</button>
-                        </form>
+
                     </div>
                 </nav>
 

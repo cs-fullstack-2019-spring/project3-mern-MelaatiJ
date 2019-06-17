@@ -91,13 +91,13 @@ class ExpressProfile extends Component {
                             <div className="col-lg-6">
                                 <h1>Welcome {this.props.username}</h1>
 
-                                <img src={this.state.userData.profilePic}/>
-                                <img src={this.state.userData.backgroundPic}/>
+                                <img className="profilePic" src={this.state.userData.profilePic}/>
+                                <img className="backgroundPic" src={this.state.userData.backgroundPic}/>
                             </div>
                             <div className="col-lg-6 editExpression">
                                 <h2>Express It!</h2>
 
-                                <form onSubmit={this.TweetPostSubmit}>
+                                <form className="tweetForm" onSubmit={this.TweetPostSubmit}>
                                     <div>
                                         <label htmlFor={"tweetMessage"}>Express Yourself: </label>
                                         <input type="text" id={"tweetMessage"} name={"tweetMessage"}/>
