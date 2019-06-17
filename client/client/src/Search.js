@@ -10,7 +10,6 @@ class Search extends Component {
             searchResults:[],
             mappedResults:[],
         };
-    }
 
     searchForm = (e) =>{
         e.preventDefault();
